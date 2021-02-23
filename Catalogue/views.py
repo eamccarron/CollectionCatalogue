@@ -12,5 +12,3 @@ def index(request):
 def items(request):
     theEntries = {"entries": Fossil.objects.all()}
     return render(request, "catalogue/items.html", theEntries)
-
-    # fake change
