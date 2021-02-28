@@ -25,17 +25,17 @@
             <div class="navbar-collapse collapse show" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item ">
-                        <a href="/catalogue/browse" class="nav-link">
+                        <a href="/browse" class="nav-link {% block nav_item_browse %}{% endblock nav_item_browse %}">
                             BROWSE
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/catalogue/search" class="nav-link">
+                        <a href="/search" class="nav-link {% block nav_item_search %}{% endblock nav_item_search %}">
                             SEARCH
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="active nav-link">
+                        <a href="/login" class="nav-link {% block nav_item_login %}{% endblock nav_item_login %}">
                             LOGIN
                         </a>
                     </li>
@@ -43,46 +43,13 @@
             </div>
         </div>
     </nav>
-    <main class="container h-100 w-100">
-        <div class="row h-100 bg-warning">
-            <div class="col h-100 justify-content-center">
-                <div class="container bg-light text-dark border rounded ">
-                    <div class=" row">
-                        <div class="col justify-content-center text-center">
-                            LOGIN
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col justify-content-center text-center">
-                            <label for="username">
-                                USERNAME:
-                            </label><input type="text" name="" id="username">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col justify-content-center text-center">
-                            <label for="password">
-                                PASSWORD:
-                            </label><input type="text" name="" id="password">
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
+    <main class="container h-100">
+        {% block content %}
+        {% endblock %}
     </main>
 </body>
 
 <style>
-    #login-container {
-        background-color: lightblue;
-        height: 50vh;
-        width: 100%;
-    }
-
     body {
         padding-top: 70px;
     }
