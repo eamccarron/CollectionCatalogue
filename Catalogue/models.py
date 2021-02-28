@@ -18,7 +18,7 @@ class BaseModel(models.Model):
         return self.name
 
 class Fossil(models.Model):
-    base = models.ForeignKey(BaseModel, blank=True, null=True, on_delete=models.SET_NULL)
+    base = models.ForeignKey(BaseModel, blank=True, null=True, on_delete=models.CASCADE)
     size = models.IntegerField(blank=True, null=True) #allow field to be left blank and set to null 
     scientific_name = models.CharField(max_length=100, default='na') 
 
