@@ -14,10 +14,10 @@ from Catalogue.routes.search import search_route
 
 #View Declaration: Routes requests to appropriate files
 def login(request):
-    return login_route(request);
+    return login_route(request)
 
 def search(request):
-    return search_route(request);
+    return search_route(request)
 
 def browse(request):
-    return browse_route(request);
+    return browse_route(request)

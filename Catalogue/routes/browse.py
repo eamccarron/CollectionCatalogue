@@ -5,4 +5,4 @@ from Catalogue.models import Fossil, Record
 
 def browse_route(request):
     context = {"records": Record.objects.all()}
-    return render(request, "browse.html", context);
+    return render(request, "browse.html", context)
