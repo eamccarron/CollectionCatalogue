@@ -11,7 +11,7 @@ class Record(models.Model):
     provenance = models.CharField(max_length=100, default='na') #the origin of item
     description = models.TextField(default='na') #unrestricted text
     item_type = models.CharField(max_length=100, default='na')
-    staff_creator = models.ForeignKey(User, on_delete=models.CASCADE) #one to many relationship, a user can create many base models but 
+    staff_creator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL) #one to many relationship, a user can create many base models but 
     #a base model may only be created by 1 user. cascade on delete so the entry doesn't still exist in the users table.
     #add dictionary --> for other attributes
     def __str__(self):
