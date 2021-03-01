@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('catalogue/', include('Catalogue.urls')) #Route Catalogue/ to the Catalogue application URLS
+    path("admin/", admin.site.urls),
+    # path('catalogue/', include('Catalogue.urls')) #Route Catalogue/ to the Catalogue application URLS
+    path(
+        "", include("Catalogue.urls")
+    ),  # Route Catalogue/ to the Catalogue application URLS
 ]
