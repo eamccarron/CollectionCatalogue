@@ -15,17 +15,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='BaseModel',
+            name='Record',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('catalogue_num', models.IntegerField(default=5)),
-                ('name', models.CharField(default='na', max_length=100)),
+                ('catalogue_num', models.IntegerField(default=1, primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=100)),
                 ('date', models.CharField(default='na', max_length=100)),
                 ('condition', models.TextField(default='na')),
                 ('provenance', models.CharField(default='na', max_length=100)),
                 ('description', models.TextField(default='na')),
                 ('item_type', models.CharField(default='na', max_length=100)),
-                ('staff_creator', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('staff_creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -34,7 +33,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('size', models.IntegerField(blank=True, null=True)),
                 ('scientific_name', models.CharField(default='na', max_length=100)),
-                ('base', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='Catalogue.basemodel')),
+                ('record', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='Catalogue.record')),
             ],
         ),
     ]
