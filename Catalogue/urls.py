@@ -9,6 +9,6 @@ from . import views
 urlpatterns = [
     path("", views.browse),
     path("browse/", views.browse, name="browse"),
-    path("login/", views.login, name="login"),
+    path("login/", admin.site.urls, name="login"),
     path("search/", views.search, name="search"),
 ]
