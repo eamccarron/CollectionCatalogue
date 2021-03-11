@@ -4,4 +4,138 @@ active
 {% endblock nav_item_search %}
 
 {% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" <div
+    class="container-fluid w-100 h-100 align-items-center justify-content-center">
+
+<div class="row">
+
+    <div class="col w-100">
+        <form class="p-3 row align-items-center justify-content-start bg-dark" action="" method="GET">
+            <div class="col col-3 d-flex">
+                <div class="form-group">
+                    <label for="catalogue" class="text-white">Catalogue:</label>
+                    <select name="catalogue" id="catalogue">
+                        <option value=""></option>
+                        <option value="camera">Camera</option>
+                        <option value="car">Car</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col col-sm-6 col-lg-8">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="val" id="val" placeholder="Search catalogue(s)">
+                </div>
+            </div>
+            <div class="col col-1">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <ul class=" list-group flex-column justify-content-end align-items-center">
+
+            {% for record in records %}
+            <li class="list-group-item record-container border rounded bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="bg-light text-center  border-dark border-bottom">
+                                <span class="text-muted text-capitalize">{{record.item_type}}:
+                                </span>
+                                {{record.name}}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-info">
+                    {%if record.has_image%}
+
+                    {% endif %}
+
+                    <p>
+                        <span class="text-capitalize text-muted">Date:
+                        </span>
+                        <span>
+                            {{record.date}}
+                        </span>
+                    </p>
+                    <p>
+                        <span class="text-capitalize text-muted">Description:
+                        </span>
+                        <span>
+                            {{record.description}}
+                        </span>
+                    </p>
+                    <p>
+                        <span class="text-capitalize text-muted">Condition:
+                        </span>
+                        <span>
+                            {{record.condition}}
+                        </span>
+                    </p>
+                    <p>
+                        <span class="text-capitalize text-muted">Provenance:
+                        </span>
+                        <span>
+                            {{record.provenance}}
+                        </span>
+                    </p>
+                    <p>
+                        <span class="text-muted">Created by:
+                        </span>
+                        <span>
+                            <a href="users/{{record.staff_creator.username}}">{{record.staff_creator.username}}</a>
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="text-capitalize text-muted">Catalogue #:
+                        </span>
+                        <span>
+                            {{record.catalogue_num}}
+                        </span>
+                    </p>
+
+
+                    {% for field,value in record.additional_info %}
+                    <p>
+                        <span class="text-capitalize text-muted"> {{field}}:
+                        </span>
+                        <span>
+                            {{value}}
+                        </span>
+                    </p>
+
+                    {% endfor %}
+                </div>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+<style>
+    .form-group {
+        margin: 0;
+    }
+
+    select {
+        height: 100%;
+        vertical-align: middle;
+        border-radius: 5%;
+    }
+</style>
+
 {% endblock content%}
