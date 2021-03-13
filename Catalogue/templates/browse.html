@@ -24,10 +24,6 @@ active
                     </div>
 
                     <div class="record-info">
-                        {%if record.has_image%}
-
-                        {% endif %}
-
                         <p>
                             <span class="text-capitalize text-muted">Date:
                             </span>
@@ -71,7 +67,6 @@ active
                                 {{record.catalogue_num}}
                             </span>
                         </p>
-
 
                         {% for field,value in record.additional_info %}
                         <p>
