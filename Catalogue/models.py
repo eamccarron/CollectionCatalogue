@@ -109,7 +109,23 @@ class Book(models.Model):
 class Photo(models.Model):
     record = models.OneToOneField(Record, on_delete=models.CASCADE)
     photographer = models.CharField(max_length=100, blank=True, null=True)
-
+    
+#user can choose what model type they are looking for and result will get stored in the allModels object model_type attribute
+class allModels(models.Model):
+    MODEL_TYPES = (
+        ('Artwork', 'Artwork'),
+        ('Book', 'Book'),
+        ('Coin', 'Coin'),
+        ('Fossil','Fossil'),
+        ('Jewelry','Jewelry'),
+        ('Medal','Medal'),
+        ('Meteorite','Meteorite'),
+        ('Photo', 'Photo'),
+        ('Pottery', 'Pottery'),
+        ('Sculpture', 'Sculpture'),
+        ('Weapon','Weapon')
+    )
+    model_type = models.CharField(max_length=11, choices=MODEL_TYPES)
 
 
 
