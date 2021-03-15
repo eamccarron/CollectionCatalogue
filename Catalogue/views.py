@@ -16,10 +16,8 @@ from Catalogue.routes.search import search_route
 def login(request):
     return login_route(request)
 
-
 def search(request):
     return search_route(request)
-
 
 def browse(request):
     return browse_route(request)

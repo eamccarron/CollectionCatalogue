@@ -28,3 +28,5 @@ def search_route(request):
         context = {"records": records}
 
         return render(request, "search.html", context)
+
+    return render(request, "search.html")
