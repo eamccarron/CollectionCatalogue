@@ -4,4 +4,282 @@ active
 {% endblock nav_item_search %}
 
 {% block content %}
+
+
+<div class="container-fluid w-100 h-100 align-items-center justify-content-center">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+
+    <div class="container mh-100" id="search-menu-area">
+
+        <form class="h-100" action="" method="GET" id="search-form">
+
+
+
+            <div class="row search-field w-100 p-3 row align-items-center justify-content-between bg-dark border-bottom border-light"
+                id="search-menu">
+                <div class="col col-4 h-100">
+                    <div class="form-group h-100">
+                        <label for="catalogue" class="text-white">Catalogue : </label>
+                        <select name="catalogue" id="catalogue"
+                            class="w-50 custom-select form-control align-items-start justify-content-start">
+                            <option value=""></option>
+                            <option value="camera">Camera</option>
+                            <option value="car">Car</option>
+                            <option value="fossil">Fossil</option>
+                            <option value="vinyl">Vinyl</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-4 h-100">
+                    <div class="form-group h-100">
+                        <input class="form-control w-100 align-items-start justify-content-start" type="text" name="val"
+                            id="val" placeholder="Search within catalogue(s)">
+                    </div>
+                </div>
+
+                <div class="col col-4 h-100">
+                    <div class="form-group h-100">
+                        <select name="" id="add-field" class="custom-select">
+                            <option value="" selected>Add a field: </option>
+                            <option value="name">Name</option>
+                            <option value="description">Description</option>
+                            <option value="date">Date</option>
+                            <option value="condition">Condition</option>
+                            <option value="provenance">Provenance</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row  p-3  justify-content-center" id="search-button-bar">
+                <div class="col col-2">
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="submit" class="btn btn-light">
+                            Search <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col col-2">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger" onclick="clearSearch()">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row w-100 p-1 bg-dark" id="search-count-bar">
+                <div class="col w-100 col-auto">
+                    <div class="text-center text-primary">
+                        <p>
+                            <span id="search-count">
+                                {{ records|length }}
+                            </span>
+                            {% if records|length == 1 %}
+                            item matches
+                            {% else %}
+                            items match
+                            {% endif %}
+                            your current search
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+
+    <div class="row" id="record-area">
+        <div class="col">
+            <ul class=" list-group flex-column justify-content-end align-items-center">
+
+                {% for record in records %}
+                <li class="list-group-item record-container border rounded bg-light">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="bg-light text-center  border-dark border-bottom">
+                                    <span class="text-muted text-capitalize">{{record.item_type}}:
+                                    </span>
+                                    {{record.name}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="record-info">
+                        {%if record.has_image%}
+
+                        {% endif %}
+
+                        <p>
+                            <span class="text-capitalize text-muted">Date:
+                            </span>
+                            <span>
+                                {{record.date}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-capitalize text-muted">Description:
+                            </span>
+                            <span>
+                                {{record.description}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-capitalize text-muted">Condition:
+                            </span>
+                            <span>
+                                {{record.condition}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-capitalize text-muted">Provenance:
+                            </span>
+                            <span>
+                                {{record.provenance}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-muted">Created by:
+                            </span>
+                            <span>
+                                <a href="users/{{record.staff_creator.username}}">{{record.staff_creator.username}}</a>
+                            </span>
+                        </p>
+
+                        <p>
+                            <span class="text-capitalize text-muted">Catalogue #:
+                            </span>
+                            <span>
+                                {{record.catalogue_num}}
+                            </span>
+                        </p>
+
+
+                        {% for field,value in record.additional_info %}
+                        <p>
+                            <span class="text-capitalize text-muted"> {{field}}:
+                            </span>
+                            <span>
+                                {{value}}
+                            </span>
+                        </p>
+
+                        {% endfor %}
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+<style>
+    select {
+        margin: 0px 5px;
+    }
+
+    .search-field {
+        height: 10vh !important;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #search-count-bar {
+        background-color: aliceblue !important;
+        height: 2rem;
+    }
+</style>
+
+<script>
+    var addField = document.getElementById("add-field");
+    var searchBar = document.getElementById("search-button-bar");
+    var menu = document.getElementById("search-form");
+
+    window.onload = function () {
+        preLoad();
+    }
+
+    addField.onchange = () => {
+        var field = addField.value;
+        createFilter(field);
+    }
+
+    function createFilter(field) {
+        var element = document.getElementById(field)
+        if (element) {
+            //already exists
+            return element;
+        }
+        element = document.createElement("div");
+        element.id = field;
+        element.className = "row search-field w-100 p-3 row align-items-center justify-content-between bg-dark border-bottom border-light";
+        element.innerHTML = `
+        <div class="col col-9">
+            <div class="form-group h-100">
+                <label class="text-white col col-4 text-justify text-nowrap">
+                    <span class="text-capitalize font-weight-bold">
+                        ${field}
+                    </span>
+                    contains:
+                </label>
+                <input class="col form-control" type="text" name="${field}" placeholder="contains...">
+            </div>
+        </div>
+
+        <div class="col col-3">
+            <div class="form-group">
+                <button class="btn btn-danger remove-field w-100" onclick="remove(this)">
+                    Remove field
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        `;
+        menu.insertBefore(element, searchBar);
+        return element;
+    }
+
+    function remove(element) {
+        element.parentElement.parentElement.parentElement.remove();
+    }
+
+    function clearSearch() {
+        document.location.href = location.href.split("?")[0];
+    }
+
+    function preLoad() {
+        var url = new URLSearchParams(window.location.search);
+        var params = Array.from(url.entries());
+
+        if (url.get("val") != "") {
+            document.getElementById("val").value = url.get("val")
+        }
+
+        if (url.get("catalogue") != "") {
+            var catalogueSelect = document.getElementById("catalogue");
+            catalogueSelect.value = url.get("catalogue")
+        }
+
+        params.forEach(obj => {
+            var filtBar = createFilter(obj[0]);
+            var input = filtBar.getElementsByTagName("input")
+            if (input.length > 0) {
+                input[0].value = obj[1];
+            }
+        })
+    }
+</script>
+
 {% endblock content%}
