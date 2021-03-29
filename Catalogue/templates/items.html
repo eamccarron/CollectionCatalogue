@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block nav_item_browse %}
+active
+{% endblock nav_item_browse %}
+
+{% block content %}
+<div class="container-fluid align-items-center justify-content-center">
+    <div class="row">
+        <div class="col">
+            <ul class=" list-group flex-column justify-content-end align-items-center">
+                {% for record in records %}
+                <li class="list-group-item record-container border rounded bg-light">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="bg-light text-center  border-dark border-bottom">
+                                    <span class="text-muted text-capitalize">{{record.item_type}}:
+                                    </span>
+                                    {{record.name}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="record-info">
+                        <p>
+                            <span class="text-capitalize text-muted">Date:
+                            </span>
+                            <span>
+                                {{record.date}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-capitalize text-muted">Description:
+                            </span>
+                            <span>
+                                {{record.description}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-capitalize text-muted">Condition:
+                            </span>
+                            <span>
+                                {{record.condition}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-capitalize text-muted">Provenance:
+                            </span>
+                            <span>
+                                {{record.provenance}}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="text-muted">Created by:
+                            </span>
+                            <span>
+                                <a href="users/{{record.staff_creator.username}}">{{record.staff_creator.username}}</a>
+                            </span>
+                        </p>
+
+                        <p>
+                            <span class="text-capitalize text-muted">Catalogue #:
+                            </span>
+                            <span>
+                                {{record.catalogue_num}}
+                            </span>
+                        </p>
+
+                        {% for field,value in record.additional_info %}
+                        <p>
+                            <span class="text-capitalize text-muted"> {{field}}:
+                            </span>
+                            <span>
+                                {{value}}
+                            </span>
+                        </p>
+
+                        {% endfor %}
+                    </div>
+                    <div id="button-area">
+                        <div class="row">
+                            {% if can_edit %}
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <a class="btn btn-warning" href="../create/">
+                                    Edit
+                                </a>
+                            </div>
+
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <a class="btn btn-danger" href="">
+                                    Delete
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="row record-container">
+        <div class="col d-flex justify-content-center align-items-center">
+            <a class="btn btn-light" href="../search/">
+                Continue browsing
+            </a>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock content%}

@@ -21,15 +21,15 @@ active
             <div class="row search-field w-100 p-3 row align-items-center justify-content-between bg-dark border-bottom border-light"
                 id="search-menu">
                 <div class="col col-4 h-100">
+
                     <div class="form-group h-100">
                         <label for="catalogue" class="text-white">Catalogue : </label>
                         <select name="catalogue" id="catalogue"
                             class="w-50 custom-select form-control align-items-start justify-content-start">
-                            <option value=""></option>
-                            <option value="camera">Camera</option>
-                            <option value="car">Car</option>
-                            <option value="fossil">Fossil</option>
-                            <option value="vinyl">Vinyl</option>
+                            {% for model in models %}
+                            <option value={{model.model_value}} label={{model.model_name}} class="text-capitalize">
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
@@ -91,93 +91,7 @@ active
         </form>
     </div>
 
-
-    <div class="row" id="record-area">
-        <div class="col">
-            <ul class=" list-group flex-column justify-content-end align-items-center">
-
-                {% for record in records %}
-                <li class="list-group-item record-container border rounded bg-light">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <h3 class="bg-light text-center  border-dark border-bottom">
-                                    <span class="text-muted text-capitalize">{{record.item_type}}:
-                                    </span>
-                                    {{record.name}}
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="record-info">
-                        {%if record.has_image%}
-
-                        {% endif %}
-
-                        <p>
-                            <span class="text-capitalize text-muted">Date:
-                            </span>
-                            <span>
-                                {{record.date}}
-                            </span>
-                        </p>
-                        <p>
-                            <span class="text-capitalize text-muted">Description:
-                            </span>
-                            <span>
-                                {{record.description}}
-                            </span>
-                        </p>
-                        <p>
-                            <span class="text-capitalize text-muted">Condition:
-                            </span>
-                            <span>
-                                {{record.condition}}
-                            </span>
-                        </p>
-                        <p>
-                            <span class="text-capitalize text-muted">Provenance:
-                            </span>
-                            <span>
-                                {{record.provenance}}
-                            </span>
-                        </p>
-                        <p>
-                            <span class="text-muted">Created by:
-                            </span>
-                            <span>
-                                <a href="users/{{record.staff_creator.username}}">{{record.staff_creator.username}}</a>
-                            </span>
-                        </p>
-
-                        <p>
-                            <span class="text-capitalize text-muted">Catalogue #:
-                            </span>
-                            <span>
-                                {{record.catalogue_num}}
-                            </span>
-                        </p>
-
-
-                        {% for field,value in record.additional_info %}
-                        <p>
-                            <span class="text-capitalize text-muted"> {{field}}:
-                            </span>
-                            <span>
-                                {{value}}
-                            </span>
-                        </p>
-
-                        {% endfor %}
-                    </div>
-                </li>
-                {% endfor %}
-
-            </ul>
-        </div>
-    </div>
-
+    {% include 'browse.html' %}
 
 </div>
 

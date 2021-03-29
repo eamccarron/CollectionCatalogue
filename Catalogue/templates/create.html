@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block nav_item_login %}
+
+{% endblock nav_item_login %}
+
+{% block content %}
+
+
+<form method="POST" action="/create/">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock content%}
