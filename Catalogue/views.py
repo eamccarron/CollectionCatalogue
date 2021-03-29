@@ -12,9 +12,8 @@ from Catalogue.routes.items import item_route
 
 from django.contrib.auth.decorators import login_required
 
-# def temp(request):
-#   context = {"entries": Fossil.objects.all()}
-#  return ""
+from Catalogue.routes.logout import logout_route
+
 
 # View Declaration: Routes requests to appropriate files
 def login(request):
@@ -28,7 +27,6 @@ def search(request):
 def browse(request):
     return browse_route(request)
 
-
 @login_required
 def create(request):
     return create_route(request)
@@ -36,3 +34,6 @@ def create(request):
 
 def items(request):
     return item_route(request)
+  
+def logout(request):
+    return logout_route(request)
