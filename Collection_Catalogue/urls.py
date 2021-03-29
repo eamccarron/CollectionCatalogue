@@ -22,4 +22,5 @@ urlpatterns = [
     path(
         "", include("Catalogue.urls")
     ),  # Route Catalogue/ to the Catalogue application URLS
+    # path('accounts/', include('django.contrib.auth.urls')),
 ]
