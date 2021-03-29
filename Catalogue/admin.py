@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Record, Fossil, Sculpture, Coin, Jewelry, Meteorite, Artwork, Pottery, Medal, Weapon, Book, Photo, allModels
+from .models import Record, Fossil, Sculpture, Coin, Jewelry, Meteorite, Artwork, Pottery, Medal, Weapon, Book, Photo, allModels, OptionalAttributes
 
 # Register your models here.
 admin.site.register(Record)
@@ -15,3 +15,4 @@ admin.site.register(Weapon)
 admin.site.register(Book)
 admin.site.register(Photo)
 admin.site.register(allModels)
+admin.site.register(OptionalAttributes)
