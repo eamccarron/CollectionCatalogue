@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from Catalogue.models import Record
+from Catalogue.models import Record, allModels
 from django.db.models import Q
 
 
@@ -25,7 +25,12 @@ def search_route(request):
                 filt_param = Q((f"{key}__contains", f"{val}"))
                 records = records.filter(filt_param)
 
-        context = {"records": records}
+        models = []
+        for model in allModels.objects.all():
+            model_name = model.model_type
+            models.append({"model_name": model_name, "model_value": model_name.lower()})
+
+        context = {"records": records, "models": models}
 
         return render(request, "search.html", context)
 
