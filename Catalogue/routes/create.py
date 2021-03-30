@@ -1,23 +1,23 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from Catalogue.models import Record
-from ..forms import createNewRecord
-from random import randint
-
-# from django.db.models import Q
+from ..forms import createNewRecord, RecordForm
+from django.db.models import Max
 
 
 def create_route(request):
-    # context = {"records": Record.objects.all()}
     if request.method == "GET":
-        form = createNewRecord()
+        form = RecordForm()
     else:  # POST
-        form = createNewRecord(request.POST)
+        form = RecordForm(request.POST)
+
         if form.is_valid():
-            data = form.cleaned_data
-            record_name = data["name"]
-            num = randint(50, 1000)
-            # create new record..........
-            Record(name=record_name, catalogue_num=num).save()
-        return HttpResponseRedirect("/browse?catalogue_num=%i" % num)
+            args = Record.objects.all()
+            if len(args) == 0:
+                c_num = 1
+            else:
+                c_num = 1 + args.aggregate(Max("catalogue_num"))["catalogue_num__max"]
+            form.instance.catalogue_num = c_num
+            form.save()
+            return HttpResponseRedirect("/items?catalogue_num=%i" % c_num)
     return render(request, "create.html", {"form": form})

@@ -10,12 +10,12 @@
     <div class="container mh-100" id="search-menu-area">
 
         <div class="form-group  border border-dark rounded bg-light p-5">
-            <h1>Create a new record</h1>
-            <form method="POST" action="/create/">
+            <h1>Edit record {{catalogue_num}}</h1>
+            <form method="POST" action="/edit/{{catalogue_num}}/">
                 {% csrf_token %}
                 {{form.as_p}}
                 <button type="submit" class="btn btn-primary">
-                    Save
+                    Save changes
                 </button>
                 <button type="" class="btn btn-danger" onclick="location.href='/';">
                     Cancel
