@@ -35,13 +35,13 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a href="/logout" class="nav-link {% block nav_item_logout %}{% endblock nav_item_logout %}">
+                        <a href="/accounts/logout" class="nav-link {% block nav_item_logout %}{% endblock nav_item_logout %}">
                             LOGOUT
                         </a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a href="/login" class="nav-link {% block nav_item_login %}{% endblock nav_item_login %}">
+                        <a href="/accounts/login" class="nav-link {% block nav_item_login %}{% endblock nav_item_login %}">
                             LOGIN
                         </a>
                     </li>

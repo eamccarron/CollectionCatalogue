@@ -14,23 +14,7 @@ active
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col login-input justify-content-center text-center">
-                    <label for="username">
-                        Username:
-                    </label><input type="text" name="" id="username">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col login-input justify-content-center text-center">
-                    <label for="password">
-                        Password:
-                    </label><input type="text" name="" id="password">
-                </div>
-            </div>
-
-            <form method="post" action="{% url 'browse' %}">
+            <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <table>
                   <tr>
@@ -63,7 +47,7 @@ active
                     {% endif %}
 
                     {# Assumes you setup the password_reset view in your URLconf #}
-                    <p><a href="{% url 'login' %}">Lost_password?</a></p>
+                    <p><a href="{% url 'login' %}">Lost password?</a></p>
                 </div>
             </div>
 
