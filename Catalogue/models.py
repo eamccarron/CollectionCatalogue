@@ -1,39 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image
+
 
 # Create your models here.
+class Attribute(models.Model):
+    attribute_name = models.CharField(max_length=100)
+    attribute_content = models.TextField()
 
 #this is stored in the record model
 class OptionalAttributes(models.Model):
-    attribute_1_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_1_content = models.TextField(blank=True, null=True)
+    attribute_1 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_1') 
+    attribute_2 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_2') 
+    attribute_3 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_3') 
+    attribute_4 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_4') 
+    attribute_5 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_5') 
+    attribute_6 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_6') 
+    attribute_7 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_7') 
+    attribute_8 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_8') 
+    attribute_9 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_9') 
+    attribute_10 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_10') 
 
-    attribute_2_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_2_content = models.TextField(blank=True, null=True)
-
-    attribute_3_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_3_content = models.TextField(blank=True, null=True)
-
-    attribute_4_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_4_content = models.TextField(blank=True, null=True)
-
-    attribute_5_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_5_content = models.TextField(blank=True, null=True)
-
-    attribute_6_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_6_content = models.TextField(blank=True, null=True)
-
-    attribute_7_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_7_content = models.TextField(blank=True, null=True)
-
-    attribute_8_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_8_content = models.TextField(blank=True, null=True)
-
-    attribute_9_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_9_content = models.TextField(blank=True, null=True)
-
-    attribute_10_name = models.CharField(max_length=100, blank=True, null=True)
-    attribute_10_content = models.TextField(blank=True, null=True)
 
 class Record(models.Model):
     catalogue_num = models.IntegerField(
@@ -50,12 +37,27 @@ class Record(models.Model):
     description = models.TextField(blank=True, null=True)  # unrestricted text
     # value = models.IntegerField(blank=True, null=True)
     item_type = models.CharField(max_length=100, blank=True, null=True)
-    staff_creator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL) #one to many relationship, a user can create many base models but 
+    staff_creator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL) 
+    #one to many relationship, a user can create many base models but 
     #a base model may only be created by 1 user. cascade on delete so the entry doesn't still exist in the users table.
+
     optional_attribute = models.OneToOneField(OptionalAttributes, blank=True, null=True, on_delete=models.SET_NULL)
+    image = models.ImageField(default="catalogue_pics/null.PNG", upload_to='catalogue_pics')
 
     def __str__(self):
         return self.name
+
+    #resizes image
+    def save(self):
+        super().save()
+        
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path) 
+
 
 
 class Fossil(models.Model):
