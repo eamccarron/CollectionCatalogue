@@ -18,4 +18,5 @@ urlpatterns = [
     path("edit/<str:pk>/", views.edit, name="edit"),
     path("logout/", views.logout, name="logout"),
     path("delete/<str:pk>/", views.delete, name="delete"),
+    path("users/",views.users, name="users"),
 ]

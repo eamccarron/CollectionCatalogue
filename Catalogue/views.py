@@ -11,14 +11,16 @@ from Catalogue.routes.create import create_route
 from Catalogue.routes.items import item_route
 from Catalogue.routes.edit import edit_route
 from Catalogue.routes.delete import delete_route
+from Catalogue.routes.users import users_route
+
 from Catalogue.routes.password_reset_complete import password_reset_complete_route
 from Catalogue.routes.password_reset_confirm import password_reset_confirm_route
 from Catalogue.routes.password_reset_done import password_reset_done_route
 from Catalogue.routes.password_reset_email import password_reset_email_route
 from Catalogue.routes.password_reset_form import password_reset_form_route
+from Catalogue.routes.users import users_route
 
 from django.contrib.auth.decorators import login_required
-
 from Catalogue.routes.logout import logout_route
 
 
@@ -71,3 +73,7 @@ def password_reset_email(request):
 
 def password_reset_form(request):
     return password_reset_form(request)
+
+@login_required
+def users(request):
+    return users_route(request)
