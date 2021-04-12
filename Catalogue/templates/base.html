@@ -52,6 +52,13 @@
                             LOGOUT
                         </a>
                     </li>
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a href="/users" class="nav-link {% block nav_item_users %}{% endblock nav_item_users %}">
+                                USERS
+                            </a>
+                        </li>
+                        {% endif %}
                     {% else %}
                     <li class="nav-item">
                         <a href="/accounts/login" class="nav-link {% block nav_item_login %}{% endblock nav_item_login %}">

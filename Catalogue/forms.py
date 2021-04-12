@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import Form, CharField, ModelForm
 from Catalogue.models import Record
+from django.contrib.auth.forms import UserCreationForm
+from django.db import models
 
 
 class createNewRecord(Form):
@@ -28,3 +30,10 @@ class RecordForm(ModelForm):
             "provenance": forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.TextInput(attrs={"class": "form-control"}),
         }
+
+class CustomUserCreationForm(UserCreationForm):
+    email = models.EmailField(verbose_name='email address', max_length=255, unique=True,)
+    is_superuser = forms.CheckboxSelectMultiple
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ("email", "is_superuser",)
+        
