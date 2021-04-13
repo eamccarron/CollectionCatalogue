@@ -14,7 +14,14 @@ def users_route(request):
         )
     elif request.method == "POST":
         form = CustomUserCreationForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             user = form.save()
             return redirect(reverse("users"))
+        else:
+            return render(request, "users.html",
+            {
+                "form": CustomUserCreationForm,
+                "form_invalid": True 
+            })
     
