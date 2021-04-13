@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from Catalogue.models import Record, OptionalAttributes
+from Catalogue.models import Record, OptionalAttributes, Attribute
 from ..forms import *
 from Catalogue.util import strToModel
 
@@ -9,22 +9,20 @@ def parse(optAttr):
     d = optAttr
     out = dict()
     for i in range(1, 11):
-        keyStr = f"attribute_{i}_name"
-        key = getattr(d, keyStr)
+        indexStr = f"attribute_{i}_id"
+        index = getattr(d, indexStr)
 
-        valStr = f"attribute_{i}_content"
-        val = getattr(d, valStr)
-
-        if key == None or val == None:
-            continue
-        else:
+        if index != None:
+            attr = Attribute.objects.get(pk=int(index))
+            key = attr.attribute_name
+            val = attr.attribute_content
             out[key] = val
     return out
 
 
 def subRecord(id):
     for model_name, model in strToModel.items():
-        if model_name in ["record", "optional attributes", "all models"]:
+        if model_name in ["record", "optional attributes", "all models", "attributes"]:
             continue
         else:
             candidates = model.objects.all().filter(id=id)
