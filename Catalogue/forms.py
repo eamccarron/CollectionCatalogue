@@ -41,6 +41,7 @@ class RecordForm(ModelForm):
             "condition": forms.TextInput(attrs={"class": "form-control"}),
             "provenance": forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.TextInput(attrs={"class": "form-control"}),
+            
         }
 
 

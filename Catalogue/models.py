@@ -114,10 +114,10 @@ class Record(models.Model):
     def __str__(self):
         return self.name
 
-    # resizes image
-    def save(self):
-        super().save()
-
+    #resizes image
+    def save(self, *args):
+        super().save(*args, **kwargs)
+        
         img = Image.open(self.image.path)
 
         if img.height > 300 or img.width > 300:

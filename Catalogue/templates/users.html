@@ -12,13 +12,15 @@ active
                 <div class="col justify-content-center text-center">
                     <h2>Users</h2>
 
-                    <form method="post">
+                    <form method="post" action="{% url 'users' %}">
                         {% csrf_token %}
-                        {{form}}
+                        {{form.as_p}}
                         <input type="submit" value="Register">
                     </form>
-
                     <a href="{% url 'login' %}">Back to login</a>
+                    {% if form_invalid %}
+                        <p style="color:red"> Invalid user information. Check password requirements and try again. </p>
+                    {% endif %}
                 </div>
             </div>    
         </div>

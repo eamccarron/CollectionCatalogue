@@ -11,7 +11,7 @@
 
         <div class="form-group  border border-dark rounded bg-light p-5">
             <h1>Create a new record</h1>
-            <form method="POST" action="/create/">
+            <form method="POST" action="/create/" enctype='multipart/form-data'>
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="template">Select a template (optional)</label>

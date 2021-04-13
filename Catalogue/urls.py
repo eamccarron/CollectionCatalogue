@@ -9,12 +9,10 @@ from . import views
 
 urlpatterns = [
     path("", views.search),
-    #path("browse/", views.search, name="browse"),
     path("items/", views.items, name="items"),
-    # path("login/", admin.site.urls, name="login"),
-    path("login/", views.login, name="login"),
     path("search/", views.search, name="search"),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/change_password", views.change_password, name="change_password"),
     path("create/", views.create, name="create"),
     path("edit/<str:pk>/", views.edit, name="edit"),
     path("logout/", views.logout, name="logout"),
