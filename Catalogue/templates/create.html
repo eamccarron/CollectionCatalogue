@@ -29,7 +29,6 @@
 
                 <div id="extra-fields">
                     {% for model_name, model_form in model_forms%}
-
                     <div class="d-none" id={{model_name}}>
                         {{model_form.as_p}}
                     </div>
@@ -37,18 +36,44 @@
                     {% endfor %}
                 </div>
 
-                <!-- <input type="checkbox" name="option-check" id="option-check" onclick="showOpt(this)">
-                <label for="option-check">Add attributes</label> -->
-                <!-- <div class="d-none" id="optional-attributes">
-                    {{opt_form.as_p}}
-                </div> -->
+                <br>
+
+                <div id="optional-attributes">
+
+                    <div class="d-none" id="attr1">
+                        <button type="button" class="btn btn-danger delete-attr" onclick="deleteAttr(this);">
+                            Delete attribute
+                        </button>
+                        <br>
+                        <br>
+                        {{attr1.as_p}}
+
+                    </div>
+
+                    <div class="d-none" id="attr2">
+                        <button type="button" class="btn btn-danger delete-attr" onclick="deleteAttr(this);">
+                            Delete attribute
+                        </button>
+                        <br>
+                        <br>
+                        {{attr2.as_p}}
+                    </div>
 
 
+                </div>
+
+                <button type="button" id="add-attr" onclick="addAttr(this)" class="btn btn-secondary">
+                    Add attributes
+                </button>
+
+
+
+                <br>
                 <br>
                 <button type="submit" class="btn btn-primary">
                     Save
                 </button>
-                <button type="" class=" btn btn-danger" onclick="location.href='/';">
+                <button type="button" class="btn btn-danger" onclick="location.href='/';">
                     Cancel
                 </button>
             </form>
@@ -61,11 +86,11 @@
 
     var template = document.getElementById("template");
     var extraFields = document.getElementById("extra-fields");
-    var itemType = document.getElementById("id_item_type")
+    var itemType = document.getElementById("id_item_type");
+    var numAttributes = 0;
 
     template.onchange = () => {
         var type = template.value;
-        console.log(type)
         createFields(type);
     }
 
@@ -83,9 +108,27 @@
         itemType.value = "";
     }
 
-    function showOpt() {
-        var optForm = document.getElementById("optional-attributes")
-        optForm.className = "d-block";
+    function addAttr() {
+        if (numAttributes > 10) {
+            return;
+        }
+        else {
+            numAttributes += 1;
+            attrID = `attr${numAttributes}`;
+            var optForm = document.getElementById(attrID)
+            optForm.className = "d-block";
+        }
+    }
+
+    function deleteAttr(e) {
+        // e.parentElement.className = "d-none";
+        // e.parentElement.type = 'hidden';
+        // var nodes = e.parentElement.getElementsByTagName("input");
+        // var nodes = e.parentElement.
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].type = 'hidden';
+            // console.log(nodes[i].inner)
+        }
     }
 
 </script>

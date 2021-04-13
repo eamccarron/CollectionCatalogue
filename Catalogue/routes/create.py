@@ -18,7 +18,10 @@ def create_route(request):
             "form": form,
             "models": models,
             "model_forms": strToFormObj.items(),
-            "opt_form": OptionForm,
+            # "opt_form": OptionForm,
+            # "opt_form": AttributeForm,
+            # "attr1": AttributeForm,
+            # "attr2": AttributeForm,
         }
         return render(request, "create.html", context)
     else:  # POST

@@ -22,7 +22,7 @@ def parse(optAttr):
 
 def subRecord(id):
     for model_name, model in strToModel.items():
-        if model_name in ["record", "optional attributes", "all models", "attributes"]:
+        if model_name in ["record", "optional attributes", "all models", "attribute"]:
             continue
         else:
             candidates = model.objects.all().filter(id=id)
