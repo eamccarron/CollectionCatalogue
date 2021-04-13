@@ -12,8 +12,12 @@ Test_Record = {
     "item_type" : "Record"
 }
 
-class BaseRecord(TestCase):
-    def setUp(self):
+Test_Fossil = {
+    "size" : 4,
+    "scientific_name" : "Test Name"
+}
+
+def createBaseTestRecord():
         Record.objects.create(
             catalogue_num = Test_Record["catalogue_num"],
             name = Test_Record["name"], 
@@ -22,6 +26,10 @@ class BaseRecord(TestCase):
             provenance = Test_Record["provenance"],
             description = Test_Record["description"]
         )
+
+class BaseRecord(TestCase):
+    def setUp(self):
+        createBaseTestRecord()
     
     def test_record_can_be_created():
         self.assertNotEqual(Record.objects.get(Test_Record["catalogue_num"]), None)
@@ -37,9 +45,17 @@ class BaseRecord(TestCase):
         provenance_field = saved_record._meta.get_field('provenance') 
 
         #Test that each stored field is equal to the value stored in testRecord
-        self.assertEqual(catalogue_num_field.value_from_object(saved_record), Test_Record.catalogue_num)
-        self.assertEqual(name_field.value_from_object(saved_record), Test_Record.catalogue_num)
-        self.assertEqual(date_field.value_from_object(saved_record), Test_Record.catalogue_num)
-        self.assertEqual(condition_field.value_from_object(saved_record), Test_Record.catalogue_num)
-        self.assertEqual(provenance_field.value_from_object(saved_record), Test_Record.catalogue_num)
+        self.assertEqual(catalogue_num_field.value_from_object(saved_record), Test_Record["catalogue_num"])
+        self.assertEqual(name_field.value_from_object(saved_record), Test_Record["catalogue_num"])
+        self.assertEqual(date_field.value_from_object(saved_record), Test_Record["catalogue_num"])
+        self.assertEqual(condition_field.value_from_object(saved_record), Test_Record["catalogue_num"])
+        self.assertEqual(provenance_field.value_from_object(saved_record), Test_Record["catalogue_num"])
 
+class FossilRecord(TestCase):
+    def setUp(self):
+        createBaseTestRecord()
+        Fossil.objects.create(
+            record = Record.objects.get(Test_Record["catalgoue_num"]),
+            size = Test_Fossil["size"],
+            scientific_name = Test_Fossil["scientific_name"]
+        )
