@@ -22,7 +22,7 @@ def create_route(request):
         }
         return render(request, "create.html", context)
     else:  # POST
-        form = RecordForm(request.POST)
+        form = RecordForm(request.POST, request.FILES)
 
         if form.is_valid():
             args = Record.objects.all()
