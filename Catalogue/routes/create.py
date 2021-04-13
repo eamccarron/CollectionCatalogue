@@ -34,7 +34,7 @@ def create_route(request):
             else:
                 c_num = 1 + args.aggregate(Max("catalogue_num"))["catalogue_num__max"]
             form.instance.catalogue_num = c_num
-            form.instance.author = request.user
+            form.instance.staff_creator = request.user
             form.save()
 
             the_type = form.cleaned_data["item_type"]

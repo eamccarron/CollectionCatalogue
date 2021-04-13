@@ -22,10 +22,12 @@ def parse(optAttr):
 
 def subRecord(id):
     for model_name, model in strToModel.items():
+        print("testing", model_name)
         if model_name in ["record", "optional attributes", "all models", "attribute"]:
             continue
         else:
-            candidates = model.objects.all().filter(id=id)
+            candidates = model.objects.all().filter(record_id=id)
+            print("candidates", candidates)
             if len(candidates) > 0:
                 print(model_name)
                 return candidates
@@ -66,6 +68,7 @@ def item_route(request):
     }
 
     subRec = subRecord(num)
+    print("sub", subRec)
     if subRec != None:
         context["subRecord"] = subRecordInfo(subRec)
 
