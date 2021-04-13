@@ -9,7 +9,6 @@ active
     <div class="row">
         <div class="col">
             <ul class=" list-group flex-column justify-content-end align-items-center">
-                {% for record in records %}
                 <li class="list-group-item record-container border rounded bg-light">
                     <div class="container">
                         <div class="row">
@@ -68,7 +67,7 @@ active
                             </span>
                         </p>
 
-                        {% for field,value in record.additional_info %}
+                        {% for field,value in attr %}
                         <p>
                             <span class="text-capitalize text-muted"> {{field}}:
                             </span>
@@ -76,7 +75,16 @@ active
                                 {{value}}
                             </span>
                         </p>
+                        {% endfor %}
 
+                        {% for field,value in subRecord %}
+                        <p>
+                            <span class="text-capitalize text-muted"> {{field}}:
+                            </span>
+                            <span>
+                                {{value}}
+                            </span>
+                        </p>
                         {% endfor %}
                     </div>
                     <div id="button-area">
@@ -84,7 +92,6 @@ active
                             {% if can_edit %}
                             <div class="col d-flex justify-content-center align-items-center">
                                 <a class="btn btn-warning" href="/edit/{{record.catalogue_num}}">
-                                    <!-- {% url 'edit' order.id % -->
                                     Edit
                                 </a>
                             </div>
@@ -98,7 +105,7 @@ active
                         </div>
                     </div>
                 </li>
-                {% endfor %}
+
 
 
             </ul>
