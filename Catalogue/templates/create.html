@@ -13,11 +13,42 @@
             <h1>Create a new record</h1>
             <form method="POST" action="/create/">
                 {% csrf_token %}
+                <div class="form-group">
+                    <label for="template">Select a template (optional)</label>
+                    <select name="template" id="template" class="form-control">
+                        <option value="" disabled selected></option>
+                        {% for model in models %}
+                        <option value={{model.model_value}} label={{model.model_name}} class="text-capitalize">
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
                 {{form.as_p}}
+
+                <div id="extra-fields">
+                    {% for model_name, model_form in model_forms%}
+
+                    <div class="d-none" id={{model_name}}>
+                        {{model_form.as_p}}
+                    </div>
+
+                    {% endfor %}
+                </div>
+
+                <!-- <input type="checkbox" name="option-check" id="option-check" onclick="showOpt(this)">
+                <label for="option-check">Add attributes</label> -->
+                <!-- <div class="d-none" id="optional-attributes">
+                    {{opt_form.as_p}}
+                </div> -->
+
+
+                <br>
                 <button type="submit" class="btn btn-primary">
                     Save
                 </button>
-                <button type="" class="btn btn-danger" onclick="location.href='/';">
+                <button type="" class=" btn btn-danger" onclick="location.href='/';">
                     Cancel
                 </button>
             </form>
@@ -25,4 +56,38 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    var template = document.getElementById("template");
+    var extraFields = document.getElementById("extra-fields");
+    var itemType = document.getElementById("id_item_type")
+
+    template.onchange = () => {
+        var type = template.value;
+        console.log(type)
+        createFields(type);
+    }
+
+    function createFields(type) {
+        clearExtra();
+        var subForm = document.getElementById(type);
+        subForm.className = "d-block";
+        itemType.value = type;
+    }
+
+    function clearExtra() {
+        Array.from(extraFields.children).forEach(element => {
+            element.className = "d-none"
+        });
+        itemType.value = "";
+    }
+
+    function showOpt() {
+        var optForm = document.getElementById("optional-attributes")
+        optForm.className = "d-block";
+    }
+
+</script>
+
 {% endblock content%}
