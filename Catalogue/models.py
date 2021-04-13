@@ -48,8 +48,8 @@ class Record(models.Model):
         return self.name
 
     #resizes image
-    def save(self):
-        super().save()
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         
         img = Image.open(self.image.path)
 
