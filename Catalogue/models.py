@@ -8,18 +8,79 @@ class Attribute(models.Model):
     attribute_name = models.CharField(max_length=100)
     attribute_content = models.TextField()
 
-#this is stored in the record model
+
+# this is stored in the record model
 class OptionalAttributes(models.Model):
-    attribute_1 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_1') 
-    attribute_2 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_2') 
-    attribute_3 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_3') 
-    attribute_4 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_4') 
-    attribute_5 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_5') 
-    attribute_6 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_6') 
-    attribute_7 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_7') 
-    attribute_8 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_8') 
-    attribute_9 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_9') 
-    attribute_10 = models.OneToOneField(Attribute, blank=True, null=True, on_delete=models.SET_NULL, related_name='attr_10') 
+    attribute_1 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_1",
+    )
+    attribute_2 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_2",
+    )
+    attribute_3 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_3",
+    )
+    attribute_4 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_4",
+    )
+    attribute_5 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_5",
+    )
+    attribute_6 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_6",
+    )
+    attribute_7 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_7",
+    )
+    attribute_8 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_8",
+    )
+    attribute_9 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_9",
+    )
+    attribute_10 = models.OneToOneField(
+        Attribute,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="attr_10",
+    )
 
 
 class Record(models.Model):
@@ -37,18 +98,24 @@ class Record(models.Model):
     description = models.TextField(blank=True, null=True)  # unrestricted text
     # value = models.IntegerField(blank=True, null=True)
     item_type = models.CharField(max_length=100, blank=True, null=True)
-    staff_creator = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL) 
-    #one to many relationship, a user can create many base models but 
-    #a base model may only be created by 1 user. cascade on delete so the entry doesn't still exist in the users table.
+    staff_creator = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.SET_NULL
+    )
+    # one to many relationship, a user can create many base models but
+    # a base model may only be created by 1 user. cascade on delete so the entry doesn't still exist in the users table.
 
-    optional_attribute = models.OneToOneField(OptionalAttributes, blank=True, null=True, on_delete=models.SET_NULL)
-    image = models.ImageField(default="catalogue_pics/null.PNG", upload_to='catalogue_pics')
+    optional_attribute = models.OneToOneField(
+        OptionalAttributes, blank=True, null=True, on_delete=models.SET_NULL
+    )
+    image = models.ImageField(
+        default="catalogue_pics/null.PNG", upload_to="catalogue_pics"
+    )
 
     def __str__(self):
         return self.name
 
     #resizes image
-    def save(self, *args, **kwargs):
+    def save(self, *args):
         super().save(*args, **kwargs)
         
         img = Image.open(self.image.path)
@@ -56,8 +123,7 @@ class Record(models.Model):
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
             img.thumbnail(output_size)
-            img.save(self.image.path) 
-
+            img.save(self.image.path)
 
 
 class Fossil(models.Model):
@@ -103,7 +169,9 @@ class Jewelry(models.Model):
         ("Gem", "Gem"),
         ("Other", "Other"),
     )
-    jewelry_type = models.CharField(max_length=10, choices=JEWELRY_TYPES)
+    jewelry_type = models.CharField(
+        max_length=10, choices=JEWELRY_TYPES, blank=True, null=True
+    )
     colour = models.CharField(max_length=100, blank=True, null=True)
     material = models.CharField(max_length=100, blank=True, null=True)
     size = models.IntegerField(blank=True, null=True)
@@ -192,7 +260,3 @@ class allModels(models.Model):
         ("Weapon", "Weapon"),
     )
     model_type = models.CharField(max_length=11, choices=MODEL_TYPES)
-
-
-
-
