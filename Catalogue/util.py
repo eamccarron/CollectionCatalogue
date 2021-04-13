@@ -13,7 +13,6 @@ strToForm = {
     "book": BookForm,
     "coin": CoinForm,
     "fossil": FossilForm,
-    "jewelry": JewelryForm,
     "medal": MedalForm,
     "meteorite": MeteoriteForm,
     "photo": PhotoForm,
