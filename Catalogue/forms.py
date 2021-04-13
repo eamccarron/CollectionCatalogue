@@ -1,6 +1,9 @@
 from django import forms
 from django.forms import Form, CharField, ModelForm
+
 from Catalogue.models import *
+from django.contrib.auth.forms import UserCreationForm
+from django.db import models
 
 
 def getFieldsWidgets(model):
@@ -38,7 +41,6 @@ class RecordForm(ModelForm):
             "provenance": forms.TextInput(attrs={"class": "form-control"}),
             "description": forms.TextInput(attrs={"class": "form-control"}),
         }
-
 
 class ArtworkForm(ModelForm):
     class Meta:
@@ -110,3 +112,10 @@ class OptionForm(ModelForm):
     class Meta:
         model = OptionalAttributes
         fields, widgets = getFieldsWidgets(model)
+
+class CustomUserCreationForm(UserCreationForm):
+    email = models.EmailField(verbose_name='email address', max_length=255, unique=True,)
+    is_superuser = forms.CheckboxSelectMultiple
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ("email", "is_superuser",)
+        
