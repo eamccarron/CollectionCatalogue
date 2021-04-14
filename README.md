@@ -8,7 +8,9 @@ In order to run the server, Django must be installed using pip.  In addition, th
 3. Run the following commands from the root directory:
 
 python manage.py makemigrations
+
 python manage.py sqlmigrate Catalogue 0001 
+
 python manage.py migrate
 
 The server can then be run with the command:
